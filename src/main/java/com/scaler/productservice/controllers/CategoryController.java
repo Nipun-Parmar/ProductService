@@ -1,2 +1,9 @@
-package com.scaler.productservice.controllers;public class CategoryController {
+package com.scaler.productservice.controllers;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class CategoryController {
+    public void getAllCategories(){}
+    public void getInCategory(){}
 }
