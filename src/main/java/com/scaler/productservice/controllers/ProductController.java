@@ -4,6 +4,8 @@ import com.scaler.productservice.ProductServiceApplication;
 import com.scaler.productservice.models.Product;
 import com.scaler.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,28 +19,34 @@ public class ProductController {
         this.productService = productService;
     }
     @GetMapping()
-    public List<Product> getAllProducts(){
-        return new ArrayList<>();
+    public ResponseEntity<List<Product>> getAllProducts(){
+        ResponseEntity<List<Product>> response = new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+        return response;
     }
     @GetMapping("/{id}")
-    public Product getSingleProduct(@PathVariable("id")Long id){
-        return productService.getSingleProduct(id);
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id")Long id){
+        ResponseEntity<Product> response = new ResponseEntity<>(productService.getSingleProduct(id),HttpStatus.OK);
+        return response;
     }
     @PostMapping()
-    public Product addNewProduct(@RequestBody Product product){
-        Product p = new Product();
-        return p;
+    public ResponseEntity<Product> addNewProduct(@RequestBody Product product){
+        ResponseEntity<Product> response = new ResponseEntity<>(productService.addNewProduct(product),HttpStatus.OK);
+        return response;
     }
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("id")Long id, @RequestBody Product product){
-        return new Product();
+    public ResponseEntity<Product> updateProduct(@PathVariable("id")Long id, @RequestBody Product product){
+        ResponseEntity<Product> response = new ResponseEntity<>(productService.updateProduct(id,product), HttpStatus.OK);
+        return response;
     }
     @PutMapping("/{id}")
-    public Product replaceProduct(@PathVariable("id")Long id, @RequestBody Product product){
-        return new Product();
+    public ResponseEntity<Product> replaceProduct(@PathVariable("id")Long id, @RequestBody Product product){
+        ResponseEntity<Product> response = new ResponseEntity<>(productService.replaceProduct(id,product),HttpStatus.OK);
+        return response;
     }
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id")Long id){
-
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id")Long id){
+        productService.deleteProduct(id);
+        ResponseEntity<Void> response = new ResponseEntity<>(HttpStatus.OK);
+        return response;
     }
 }
