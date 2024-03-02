@@ -1,6 +1,7 @@
 package com.scaler.productservice.controllers;
 
 import com.scaler.productservice.ProductServiceApplication;
+import com.scaler.productservice.exceptions.ProductNotExistsException;
 import com.scaler.productservice.models.Product;
 import com.scaler.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ProductController {
         return response;
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("id")Long id){
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id")Long id) throws ProductNotExistsException {
         ResponseEntity<Product> response = new ResponseEntity<>(productService.getSingleProduct(id),HttpStatus.OK);
         return response;
     }
