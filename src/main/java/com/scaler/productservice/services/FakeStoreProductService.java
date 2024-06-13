@@ -16,7 +16,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService{
     private RestTemplate restTemplate;
     @Autowired
@@ -70,8 +70,9 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public void deleteProduct(Long id) {
+    public boolean deleteProduct(Long id) {
         restTemplate.delete("https://fakestoreapi.com/products/" + id);
+        return false;
     }
 
     @Override

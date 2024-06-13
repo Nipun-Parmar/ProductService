@@ -14,6 +14,7 @@ public class ExceptionHandler {
     ){
         ExceptionHandlerDTO exceptionDTO = new ExceptionHandlerDTO();
         exceptionDTO.setMessage(exception.getMessage());
+        exceptionDTO.setDetail("May be Product ID is Invalid. Try with a valid ID");
         return new ResponseEntity<>(exceptionDTO, HttpStatus.OK);
     }
 }

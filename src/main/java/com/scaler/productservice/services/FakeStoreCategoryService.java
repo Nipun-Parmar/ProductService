@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@Service
+@Service("fakeStoreCategoryService")
 public class FakeStoreCategoryService implements CategoryService{
     private RestTemplate restTemplate;
     @Autowired
