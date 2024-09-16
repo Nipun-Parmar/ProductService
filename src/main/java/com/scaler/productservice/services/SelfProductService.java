@@ -25,9 +25,10 @@ public class SelfProductService implements ProductService{
     }
     @Override
     public Product getSingleProduct(Long id) throws ProductNotExistsException { // in class
-        Optional<Product> productOptional = productRepository.findById(1L);
+        Optional<Product> productOptional = productRepository.findById(id);
         if(productOptional.isEmpty()){
-            throw new ProductNotExistsException("Product with id: " + id + " does not exist.");
+            throw new ProductNotExistsException("Product with id: "
+                    + id + " does not exist.");
         }
         Product product = productOptional.get();
         return product;
@@ -56,10 +57,20 @@ public class SelfProductService implements ProductService{
 //            product.setCategory(savedcategory);
 //        }
 
+        //Initially
+//        Optional<Category> categoryOptional =
+//                categoryRepository.findByName(product.getCategory().getName());
+//        if(categoryOptional.isEmpty()){
+//            product.setCategory(categoryRepository.save(product.getCategory()));
+//        }else {
+//            product.setCategory(categoryOptional.get());
+//        }
+
+        // Explaining cascade operation CascadeType.ALL
         Optional<Category> categoryOptional =
                 categoryRepository.findByName(product.getCategory().getName());
         if(categoryOptional.isEmpty()){
-            product.setCategory(categoryRepository.save(product.getCategory()));
+//            product.setCategory(categoryRepository.save(product.getCategory()));
         }else {
             product.setCategory(categoryOptional.get());
         }
@@ -68,6 +79,26 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product updateProduct(Long id, Product product) { // in class
-        return null;
+        Optional<Product> productOptional = productRepository.findById(id);
+        if(productOptional.isEmpty()) throw new RuntimeException();
+
+        Product savedProduct = productOptional.get();
+
+        if(product.getTitle() != null){
+            savedProduct.setTitle(product.getTitle());
+        }
+
+        if(product.getDescription() != null){
+            savedProduct.setDescription(product.getDescription());
+        }
+
+        if(product.getPrice() != null){
+            savedProduct.setPrice(product.getPrice());
+        }
+
+        if(product.getImageURL() != null){
+            savedProduct.setImageURL(product.getImageURL());
+        }
+        return productRepository.save(savedProduct);
     }
 }
