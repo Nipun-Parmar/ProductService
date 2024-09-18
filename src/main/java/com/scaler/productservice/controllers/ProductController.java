@@ -27,20 +27,20 @@ public class ProductController {
         this.authenticationCommons = authenticationCommons;
     }
     @GetMapping()
-    public ResponseEntity<List<Product>> getAllProducts(@RequestHeader("AuthenticationToken") String token){
-        UserDto userDto = authenticationCommons.validateToken(token);
-        if(userDto == null){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        boolean isAdmin = false;
-        for(Role role:userDto.getRoles()){
-            if(role.getName().equals("ADMIN")){
-                isAdmin = true;
-                break;
-            }
-        }
-
-        if (!isAdmin){return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);}
+    public ResponseEntity<List<Product>> getAllProducts(){
+//        UserDto userDto = authenticationCommons.validateToken(token);
+//        if(userDto == null){
+//            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//        }
+//        boolean isAdmin = false;
+//        for(Role role:userDto.getRoles()){
+//            if(role.getName().equals("ADMIN")){
+//                isAdmin = true;
+//                break;
+//            }
+//        }
+//
+//        if (!isAdmin){return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);}
 
         ResponseEntity<List<Product>> response =
                 new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
